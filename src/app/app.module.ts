@@ -45,6 +45,7 @@ import { NotificationService } from './notification/notification.service';
 import { NotificationCenterComponent } from './notification-center/notification-center.component';
 import { PrintControlComponent } from './print-control/print-control.component';
 import { PrinterStatusComponent } from './printer-status/printer-status.component';
+import { PrusaMMUComponent } from './prusa-mmu/prusa-mmu.component';
 import { EnclosureOctoprintService } from './services/enclosure/enclosure.octoprint.service';
 import { EnclosureService } from './services/enclosure/enclosure.service';
 import { FilamentManagerOctoprintService } from './services/filament/filament-manager.octoprint.service';
@@ -56,6 +57,7 @@ import { JobOctoprintService } from './services/job/job.octoprint.service';
 import { JobService } from './services/job/job.service';
 import { PrinterOctoprintService } from './services/printer/printer.octoprint.service';
 import { PrinterService } from './services/printer/printer.service';
+import { PrusaMMUService } from './services/prusammu/prusa-mmu.service';
 import { OctoPrintSocketService } from './services/socket/socket.octoprint.service';
 import { SocketService } from './services/socket/socket.service';
 import { SystemOctoprintService } from './services/system/system.octoprint.service';
@@ -105,6 +107,7 @@ export function playerFactory(): LottiePlayer {
     CustomActionsComponent,
     ToggleSwitchComponent,
     NotificationCenterComponent,
+    PrusaMMUComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -122,6 +125,7 @@ export function playerFactory(): LottiePlayer {
     ConfigService,
     ConversionService,
     EventService,
+    PrusaMMUService,
     NotificationService,
     [
       {
@@ -139,12 +143,13 @@ export function playerFactory(): LottiePlayer {
     [
       {
         provide: SocketService,
-        deps: [ConfigService, SystemService, ConversionService, NotificationService, HttpClient],
+        deps: [ConfigService, SystemService, ConversionService, NotificationService, PrusaMMUService, HttpClient],
         useFactory: (
           configService: ConfigService,
           systemService: SystemService,
           conversionService: ConversionService,
           notificationService: NotificationService,
+          prusaMMUService: PrusaMMUService,
           httpClient: HttpClient,
         ) => {
           return new OctoPrintSocketService(
@@ -152,6 +157,7 @@ export function playerFactory(): LottiePlayer {
             systemService,
             conversionService,
             notificationService,
+            prusaMMUService,
             httpClient,
           );
         },

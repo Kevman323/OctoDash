@@ -1,0 +1,16 @@
+<div class="prusammu">
+    <div class="prusammu-wrapper">
+        <div class="prusammu-container" (click)="$event.stopPropagation()">
+            <div class="prusammu__content">
+                <span class="prusammu__heading" i18n="@@select-filament-from-mmu">select filament for MMU</span>
+                <ul class="prusammu__list">
+                    <li (click)="setFilament(filament)" *ngFor="let filament of prusaMMUService.filaments">
+                        <fa-icon [icon]="['fas', 'paint-brush']" [style.color]="filament.color"></fa-icon>
+                        <span class="prusammu__section-heading">{{ filament.id }}: {{ filament.name }}</span>
+                        <fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

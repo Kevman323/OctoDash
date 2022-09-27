@@ -15,6 +15,8 @@ import {
   PrinterNotification,
   PrinterState,
   PrinterStatus,
+  PrusaMMUActions,
+  PrusaMMUMessage,
   SocketAuth,
 } from '../../model';
 import {
@@ -25,6 +27,7 @@ import {
   OctoprintSocketEvent,
 } from '../../model/octoprint';
 import { NotificationService } from '../../notification/notification.service';
+import { PrusaMMUService } from '../prusammu/prusa-mmu.service';
 import { SystemService } from '../system/system.service';
 import { SocketService } from './socket.service';
 
@@ -48,6 +51,7 @@ export class OctoPrintSocketService implements SocketService {
     private systemService: SystemService,
     private conversionService: ConversionService,
     private notificationService: NotificationService,
+    private prusaMMUService: PrusaMMUService,
     private http: HttpClient,
   ) {
     this.printerStatusSubject = new ReplaySubject<PrinterStatus>(1);
@@ -167,6 +171,10 @@ export class OctoPrintSocketService implements SocketService {
       {
         check: (plugin: string) => ['action_command_prompt', 'action_command_notification'].includes(plugin),
         handler: (message: unknown) => this.handlePrinterNotification(message as PrinterNotification),
+      },
+      {
+        check: (plugin: string) => plugin === 'prusammu',
+        handler: (message: unknown) => this.handlePrusaMMU(message as PrusaMMUMessage),
       },
     ];
 
@@ -412,6 +420,15 @@ export class OctoPrintSocketService implements SocketService {
       .subscribe();
   }
 
+  //==== PrusaMMU ====//
+  private handlePrusaMMU(message: PrusaMMUMessage) {
+    // Show Filament-chooser
+    if (message.action === PrusaMMUActions.SHOW) {
+      this.prusaMMUService.showHideFilamentPicker(true);
+    } else if (message.action === PrusaMMUActions.CLOSE) {
+      this.prusaMMUService.showHideFilamentPicker(false);
+    }
+  }
   //==== Subscribables ====//
 
   public getPrinterStatusSubscribable(): Observable<PrinterStatus> {

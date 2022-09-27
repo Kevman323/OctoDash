@@ -8,7 +8,7 @@ import { FilamentPluginService } from './filament-plugin.service';
 
 @Injectable()
 export class FilamentService {
-  private filamentSpools: Array<FilamentSpool>;
+  public filamentSpools: Array<FilamentSpool>;
   private currentSpool: FilamentSpool;
   private loading = true;
 

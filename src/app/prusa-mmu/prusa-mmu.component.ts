@@ -9,12 +9,16 @@ import { PrusaMMUService } from '../services/prusammu/prusa-mmu.service';
   templateUrl: './prusa-mmu.component.html',
   styleUrls: ['./prusa-mmu.component.scss'],
 })
-export class PrusaMMUComponent implements OnDestroy {
+export class PrusaMMUComponent implements OnDestroy, OnInit {
   constructor(public prusaMMUService: PrusaMMUService) {}
   subscriptions: Subscription[] = [];
 
+  ngOnInit(): void {
+    this.subscriptions.push(this.prusaMMUService.initFilaments().subscribe());
+  }
+
   setFilament(filament: Filament) {
-    this.prusaMMUService.setFilament(filament);
+    this.subscriptions.push(this.prusaMMUService.setFilament(filament).subscribe());
   }
 
   ngOnDestroy(): void {

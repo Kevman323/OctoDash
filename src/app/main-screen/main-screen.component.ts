@@ -11,6 +11,7 @@ import { FilesService } from '../services/files/files.service';
 })
 export class MainScreenComponent {
   public printing = false;
+  usePrusaMMU = false;
 
   public constructor(
     private eventService: EventService,
@@ -20,6 +21,8 @@ export class MainScreenComponent {
   ) {
     if (!this.configService.isInitialized()) {
       this.router.navigate(['/']);
+    } else {
+      this.usePrusaMMU = this.configService.isPrusaMMUPluginEnabled();
     }
   }
 

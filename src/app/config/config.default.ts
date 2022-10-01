@@ -42,6 +42,9 @@ export const defaultConfig: Config = {
     spoolManager: {
       enabled: false,
     },
+    prusammu: {
+      enabled: false,
+    },
     preheatButton: {
       enabled: true,
     },

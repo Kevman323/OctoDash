@@ -53,6 +53,7 @@ interface Plugins {
   enclosure: EnclosurePlugin;
   filamentManager: Plugin;
   spoolManager: Plugin;
+  prusammu: Plugin;
   preheatButton: Plugin;
   printTimeGenius: Plugin;
   psuControl: PSUControlPlugin;

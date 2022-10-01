@@ -23,33 +23,30 @@ export class PrusaMMUService {
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   showHideFilamentPicker(show: boolean) {
-    if (show) {
-      // Start by showing what we have at hand
-      this.filamentPickerIsVisible = true;
-      // Update current filaments in case they've changed since OctoDash started
-      this.initFilaments();
-    } else {
-      this.filamentPickerIsVisible = false;
-    }
+    this.filamentPickerIsVisible = show;
   }
 
-  setFilament(filament: Filament) {
+  setFilament(filament: Filament): Observable<unknown> {
     // Hide the filament-picker
     this.filamentPickerIsVisible = false;
     // Subtract one from id (choice is zero-indexed)
     const payload: PrusaMMUCommand = { choice: filament.id - 1, command: 'select' };
-    this.http
-      .post(this.configService.getApiURL('plugin/prusammu'), payload, this.configService.getHTTPHeaders())
-      .subscribe();
+    return this.http.post(
+      this.configService.getApiURL('plugin/prusammu'),
+      payload,
+      this.configService.getHTTPHeaders(),
+    );
   }
 
-  public initFilaments() {
-    this.getPrusaMMUSettings().subscribe(prusaMMUSettings => {
-      // Right now we only handle those from PrusaMMU's own settings
-      if (prusaMMUSettings.filamentSource === 'prusammu' && prusaMMUSettings?.filament?.length) {
-        this.filaments = prusaMMUSettings.filament;
-      }
-    });
+  public initFilaments(): Observable<void> {
+    return this.getPrusaMMUSettings().pipe(
+      map(prusaMMUSettings => {
+        // Right now we only handle those from PrusaMMU's own settings
+        if (prusaMMUSettings.filamentSource === 'prusammu' && prusaMMUSettings?.filament?.length) {
+          this.filaments = prusaMMUSettings.filament;
+        }
+      }),
+    );
   }
 
   private getPrusaMMUSettings(): Observable<PrusaMMU> {

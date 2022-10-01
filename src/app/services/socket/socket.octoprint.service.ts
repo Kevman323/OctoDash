@@ -173,7 +173,7 @@ export class OctoPrintSocketService implements SocketService {
         handler: (message: unknown) => this.handlePrinterNotification(message as PrinterNotification),
       },
       {
-        check: (plugin: string) => plugin === 'prusammu',
+        check: (plugin: string) => plugin === 'prusammu' && this.configService.isPrusaMMUPluginEnabled(),
         handler: (message: unknown) => this.handlePrusaMMU(message as PrusaMMUMessage),
       },
     ];

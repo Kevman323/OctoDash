@@ -67,6 +67,7 @@ import { ToggleSwitchComponent } from './shared/toggle-switch/toggle-switch.comp
 import { StandbyComponent } from './standby/standby.component';
 import { UpdateComponent } from './update/update.component';
 import { URLSafePipe } from './url.pipe';
+import { EnabledFilamentOnlyPipe } from './prusa-mmu/enabled-filament-only.pipe';
 
 export function playerFactory(): LottiePlayer {
   return player;
@@ -99,6 +100,7 @@ export function playerFactory(): LottiePlayer {
     StandbyComponent,
     UpdateComponent,
     URLSafePipe,
+    EnabledFilamentOnlyPipe,
     WelcomeComponent,
     HeatNozzleComponent,
     MoveFilamentComponent,

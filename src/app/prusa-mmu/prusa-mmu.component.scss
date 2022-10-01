@@ -17,20 +17,12 @@
 
   &-container {
     position: absolute;
-    top: 10vh;
-    left: 20vw;
-    height: 81vh;
-    width: 60vw;
+    top: 5vh;
+    left: 10vw;
+    height: 90vh;
+    width: 80vw;
     background-color: #353b48;
     border-radius: 2vw;
-  }
-
-  &__version {
-    font-size: 1.5vw;
-    display: block;
-    text-align: center;
-    margin-top: 1.5vh;
-    opacity: 0.3;
   }
 
   &__heading {
@@ -193,35 +185,13 @@
   &__list {
     & fa-icon {
       font-size: 3vw;
-      margin-left: 0.5vw;
-      opacity: 0.7;
+      margin-left: 2vw;
     }
 
     & li {
       font-size: 3vw;
       padding: 2vh 0;
     }
-  }
-
-  &__made {
-    font-size: 2.3vw;
-    display: block;
-    opacity: 0.6;
-    text-align: center;
-    margin-top: 4vh;
-
-    &-heart {
-      font-size: 2vw;
-      vertical-align: -0.7vh;
-      display: inline-block;
-      color: #e84118;
-    }
-  }
-
-  &__save {
-    display: block;
-    text-align: center;
-    margin: 4vh 0;
   }
 
   &__scroll {
@@ -235,7 +205,7 @@
   &__content {
     position: absolute;
     left: 0;
-    width: 54vw;
+    width: 70vw;
     display: block;
     padding: 2vh 2vw 2vh 4vw;
 
@@ -397,5 +367,35 @@
 
   to {
     left: 60vw;
+  }
+}
+
+.files {
+  display: block;
+  width: 70vw;
+  height: 76.5vh;
+  margin-left: 2.5vw;
+  margin-top: 0.5vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 1;
+
+  &__object {
+    width: 65vw;
+    background-color: #718093;
+    border-radius: 1vw;
+    height: 7vh;
+    line-height: 8vh;
+    margin-bottom: 2vh;
+    border-left: .2em solid transparent;
+
+    &:first-of-type {
+      margin-top: 3.5vh;
+    }
+
+    &:last-of-type {
+      margin-bottom: 5.5vh;
+    }
   }
 }

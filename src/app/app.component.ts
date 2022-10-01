@@ -4,7 +4,6 @@ import { AnimationOptions } from 'ngx-lottie';
 
 import { AppService } from './app.service';
 import { ConfigService } from './config/config.service';
-import { PrusaMMUService } from './services/prusammu/prusa-mmu.service';
 import { SocketService } from './services/socket/socket.service';
 
 @Component({
@@ -39,7 +38,6 @@ export class AppComponent implements OnInit {
     private configService: ConfigService,
     private socketService: SocketService,
     private router: Router,
-    public prusaMMUService: PrusaMMUService,
   ) {}
 
   public ngOnInit(): void {
@@ -90,8 +88,6 @@ export class AppComponent implements OnInit {
           this.router.navigate(['/main-screen-no-touch']);
         }
         this.initialized = true;
-        // FIXME, move to init of plugin when enabled in plugins
-        this.prusaMMUService.initFilaments();
       })
       .finally(() => clearTimeout(showPrinterConnectedTimeout));
   }

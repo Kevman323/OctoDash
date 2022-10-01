@@ -113,6 +113,7 @@ const configSchema = {
         'displayLayerProgress',
         'enclosure',
         'filamentManager',
+        'prusammu',
         'spoolManager',
         'preheatButton',
         'printTimeGenius',
@@ -175,6 +176,17 @@ const configSchema = {
           properties: {
             enabled: {
               $id: '#/properties/plugins/properties/spoolManager/properties/enabled',
+              type: 'boolean',
+            },
+          },
+        },
+        prusammu: {
+          $id: '#/properties/plugins/properties/prusammu',
+          type: 'object',
+          required: ['enabled'],
+          properties: {
+            enabled: {
+              $id: '#/properties/plugins/properties/prusammu/properties/enabled',
               type: 'boolean',
             },
           },

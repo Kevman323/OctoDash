@@ -5,8 +5,6 @@
   (setNotificationCenterAnimation)="setNotificationCenterAnimation($event)"
   (setNotificationCenterPosition)="setNotificationCenterPosition($event)"
   [ngClass]="{ animateNotificationCenter: animateNotificationCenter }"></app-notification-center>
-<app-prusa-mmu
-  *ngIf="initialized && prusaMMUService.filamentPickerIsVisible"></app-prusa-mmu>
 <div
   class="container"
   (touchstart)="onTouchStart($event)"

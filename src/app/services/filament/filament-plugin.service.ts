@@ -8,6 +8,7 @@ export abstract class FilamentPluginService {
   abstract getSpools(): Observable<Array<FilamentSpool>>;
 
   abstract getCurrentSpool(): Observable<FilamentSpool>;
+  abstract getCurrentSpools(): Observable<FilamentSpool[]>;
 
   abstract setSpool(spool: FilamentSpool): Observable<void>;
 }

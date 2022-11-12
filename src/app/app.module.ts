@@ -68,6 +68,7 @@ import { StandbyComponent } from './standby/standby.component';
 import { UpdateComponent } from './update/update.component';
 import { URLSafePipe } from './url.pipe';
 import { EnabledFilamentOnlyPipe } from './prusa-mmu/enabled-filament-only.pipe';
+import { FilamentService } from './services/filament/filament.service';
 
 export function playerFactory(): LottiePlayer {
   return player;
@@ -128,6 +129,7 @@ export function playerFactory(): LottiePlayer {
     ConversionService,
     EventService,
     PrusaMMUService,
+    FilamentService,
     NotificationService,
     [
       {

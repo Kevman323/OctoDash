@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ConfigService } from '../../config/config.service';
+import { FilamentSpool } from '../../model';
 import { Filament, OctoPrintSettings, PrusaMMU } from '../../model/octoprint/octoprint-settings.model';
 import { PrusaMMUCommand } from '../../model/octoprint/prusammu.model';
 
@@ -19,6 +20,7 @@ export class PrusaMMUService {
     { id: 4, name: 'Filament 4', color: '#FFF', enabled: true },
     { id: 5, name: 'Filament 5', color: '#FFF', enabled: true },
   ];
+  public source = 'PrusaMMU';
 
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
@@ -38,12 +40,25 @@ export class PrusaMMUService {
     );
   }
 
-  public initFilaments(): Observable<void> {
+  public initFilaments(currentSpools?: FilamentSpool[]): Observable<void> {
     return this.getPrusaMMUSettings().pipe(
       map(prusaMMUSettings => {
-        // Right now we only handle those from PrusaMMU's own settings
         if (prusaMMUSettings.filamentSource === 'prusammu' && prusaMMUSettings?.filament?.length) {
           this.filaments = prusaMMUSettings.filament;
+          this.source = 'PrusaMMU';
+        } else if (
+          this.configService.isFilamentManagerUsed() &&
+          (prusaMMUSettings.filamentSource === 'spoolManager' || prusaMMUSettings.filamentSource === 'filamentManager')
+        ) {
+          this.source = this.configService.isSpoolManagerPluginEnabled() ? 'SpoolManager' : 'Filament Manager';
+          this.filaments = currentSpools.map(filament => {
+            return {
+              id: filament.tool,
+              name: `${filament.name}${filament.material ? ' (' + filament.material + ')' : ''}`,
+              color: filament.color ?? '#FFF',
+              enabled: filament?.id > -1,
+            };
+          });
         }
       }),
     );

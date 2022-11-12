@@ -33,6 +33,19 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
       }),
     );
   }
+  public getCurrentSpools(): Observable<FilamentSpool[]> {
+    return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
+      map((spools: SpoolManagerSpoolList): FilamentSpool[] => {
+        if (spools.selectedSpools.length > 0) {
+          return spools.selectedSpools.map((selectedSpool, index) =>
+            this.convertFilamentManagerSpool(selectedSpool, index + 1),
+          );
+        } else {
+          return null;
+        }
+      }),
+    );
+  }
 
   private callSpoolManagerAPI(
     filterName: string,
@@ -56,20 +69,38 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
     );
   }
 
-  private convertFilamentManagerSpool(spool: SpoolManagerSpool): FilamentSpool {
-    return {
-      color: spool.color ?? '#f5f6fa',
-      density: spool.density,
-      diameter: spool.diameter,
-      displayName: `${spool.vendor} - ${spool.displayName}`,
-      id: spool.databaseId,
-      material: spool.material,
-      name: spool.displayName,
-      temperatureOffset: spool.offsetTemperature ?? 0,
-      used: Number(spool.usedWeight),
-      vendor: spool.vendor,
-      weight: spool.totalWeight,
-    };
+  private convertFilamentManagerSpool(spool: SpoolManagerSpool, toolIndex?: number): FilamentSpool {
+    if (spool) {
+      return {
+        color: spool.color ?? '#f5f6fa',
+        density: spool.density,
+        diameter: spool.diameter,
+        displayName: `${spool.vendor} - ${spool.displayName}`,
+        id: spool.databaseId,
+        material: spool.material,
+        name: spool.displayName,
+        temperatureOffset: spool.offsetTemperature ?? 0,
+        used: Number(spool.usedWeight),
+        vendor: spool.vendor,
+        weight: spool.totalWeight,
+        tool: toolIndex,
+      };
+    } else {
+      return {
+        color: '#f5f6fa',
+        density: undefined,
+        diameter: undefined,
+        displayName: 'Disabled',
+        id: undefined,
+        material: undefined,
+        name: 'Disabled',
+        temperatureOffset: undefined,
+        used: undefined,
+        vendor: undefined,
+        weight: undefined,
+        tool: toolIndex,
+      };
+    }
   }
 
   public setSpool(spool: FilamentSpool): Observable<void> {

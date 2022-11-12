@@ -48,7 +48,24 @@ export class FilamentManagerOctoprintService implements FilamentPluginService {
       );
   }
 
-  private convertFilamentManagerSpool(spool: FilamentManagerSpool): FilamentSpool {
+  public getCurrentSpools(): Observable<FilamentSpool[]> {
+    return this.http
+      .get(
+        this.configService.getApiURL('plugin/filamentmanager/selections', false),
+        this.configService.getHTTPHeaders(),
+      )
+      .pipe(
+        map((selection: FilamentManagerSelections): FilamentSpool[] => {
+          if (selection.selections.length > 0) {
+            return selection.selections.map(selected => this.convertFilamentManagerSpool(selected.spool, selected.tool+1));
+          } else {
+            return null;
+          }
+        }),
+      );
+  }
+
+  private convertFilamentManagerSpool(spool: FilamentManagerSpool, tool?: number): FilamentSpool {
     colorRegexp.lastIndex = 0;
     const match = colorRegexp.exec(spool.name);
     return {
@@ -65,6 +82,7 @@ export class FilamentManagerOctoprintService implements FilamentPluginService {
       used: spool.used,
       vendor: spool.profile.vendor,
       weight: spool.weight,
+      tool: tool
     };
   }
 

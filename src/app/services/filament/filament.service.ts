@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 
 import { ConfigService } from '../../config/config.service';
 import { FilamentSpool, NotificationType } from '../../model';
@@ -45,7 +46,19 @@ export class FilamentService {
         }),
     });
   }
-
+  public getCurrentFilamentSpools(): Observable<FilamentSpool[]> {
+    return this.filamentPluginService.getCurrentSpools().pipe(
+      tap({
+        error: (error: HttpErrorResponse) =>
+          this.notificationService.setNotification({
+            heading: $localize`:@@error-spools:Can't load active spools!`,
+            text: error.message,
+            type: NotificationType.ERROR,
+            time: new Date(),
+          }),
+      }),
+    );
+  }
   public getFilamentSpools(): Array<FilamentSpool> {
     return this.filamentSpools;
   }

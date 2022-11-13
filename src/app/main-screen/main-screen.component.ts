@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../config/config.service';
 import { EventService } from '../event.service';
 import { FilesService } from '../services/files/files.service';
+import {PrusaMMUService} from "../services/prusammu/prusa-mmu.service";
 
 @Component({
   selector: 'app-main-screen',
@@ -18,6 +19,7 @@ export class MainScreenComponent {
     private fileService: FilesService,
     private configService: ConfigService,
     private router: Router,
+    public prusaMMUService: PrusaMMUService
   ) {
     if (!this.configService.isInitialized()) {
       this.router.navigate(['/']);

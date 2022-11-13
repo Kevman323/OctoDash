@@ -47,5 +47,6 @@ export class PrusaMMUComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.prusaMMUService.showHideFilamentPicker(false);
   }
 }

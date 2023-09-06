@@ -56,7 +56,7 @@
     "build:prod": "ng build --configuration production",
     "build": "ng build",
     "electron:dev": "electron . --serve --big",
-    "electron:pack": "electron-builder build -l",
+    "electron:pack": "USE_SYSTEM_FPM=true electron-builder build --linux deb --armv7l",
     "electron:serve:big": "wait-on http-get://localhost:4200/ && electron . --serve --big",
     "electron:serve": "wait-on http-get://localhost:4200/ && electron . --serve",
     "electron": "electron .",

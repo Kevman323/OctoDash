@@ -23,7 +23,7 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
   }
 
   public getCurrentSpool(): Observable<FilamentSpool> {
-    return this.callSpoolManagerAPISelectedSpools('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
+    return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
       map((spools: SpoolManagerSpoolList): FilamentSpool => {
         if (spools.selectedSpools.length > 0) {
           return this.convertFilamentManagerSpool(spools.selectedSpools[0]);
@@ -34,7 +34,7 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
     );
   }
   public getCurrentSpools(): Observable<FilamentSpool[]> {
-    return this.callSpoolManagerAPISelectedSpools('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
+    return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
       map((spools: SpoolManagerSpoolList): FilamentSpool[] => {
         if (spools.selectedSpools.length > 0) {
           return spools.selectedSpools.map((selectedSpool, index) =>
@@ -56,28 +56,6 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
   ): Observable<SpoolManagerSpoolList> {
     return this.http.get<SpoolManagerSpoolList>(
       this.configService.getApiURL('plugin/SpoolManager/loadSpoolsByQuery', false),
-      {
-        ...this.configService.getHTTPHeaders(),
-        params: {
-          filterName,
-          from,
-          to,
-          sortColumn,
-          sortOrder,
-        },
-      },
-    );
-  }
-
-  private callSpoolManagerAPISelectedSpools(
-    filterName: string,
-    from: number,
-    to: number,
-    sortColumn: string,
-    sortOrder: string,
-  ): Observable<SpoolManagerSpoolList> {
-    return this.http.get<SpoolManagerSpoolList>(
-      this.configService.getApiURL('plugin/SpoolManager/loadSelectedSpools', false),
       {
         ...this.configService.getHTTPHeaders(),
         params: {

@@ -30,6 +30,10 @@ import { EventService } from './event.service';
 import { ChangeFilamentComponent } from './filament/change-filament/change-filament.component';
 import { ChooseFilamentComponent } from './filament/choose-filament/choose-filament.component';
 import { FilamentComponent } from './filament/filament.component';
+import { FilamentMMUComponent } from './filament-mmu/filament-mmu.component';
+import { ChooseFunctionComponent } from './filament-mmu/choose-function/choose-function.component';
+import { ChooseNozzleComponent } from './filament-mmu/choose-nozzle/choose-nozzle.component';
+import { DisplayFunctionComponent } from './filament-mmu/display-function/display-function.component';
 import { HeatNozzleComponent } from './filament/heat-nozzle/heat-nozzle.component';
 import { MoveFilamentComponent } from './filament/move-filament/move-filament.component';
 import { PurgeFilamentComponent } from './filament/purge-filament/purge-filament.component';
@@ -84,6 +88,10 @@ export function playerFactory(): LottiePlayer {
     DiscoverOctoprintComponent,
     ExtruderInformationComponent,
     FilamentComponent,
+    FilamentMMUComponent,
+    ChooseFunctionComponent,
+    ChooseNozzleComponent,
+    DisplayFunctionComponent,
     FilesComponent,
     JobStatusComponent,
     HeightProgressComponent,

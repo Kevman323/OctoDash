@@ -1,0 +1,12 @@
+<div class="display-function">
+  <div
+    *ngIf="selectedMmuFunction === 'load-nozzle' || selectedMmuFunction === 'unload-nozzle'"
+    class="display-function__temp"
+  >hotend temperature: {{this.hotendTemperature}}°C</div>
+  <div
+    class="display-function__info"
+  > {{this.currentMessage}} </div>
+  <div class="display-function__button" matRipple (click)="buttonClick()" *ngIf="!hideButton">
+    <div class="display-function__button-text"> {{this.buttonMessage}} </div>
+  </div>
+</div>

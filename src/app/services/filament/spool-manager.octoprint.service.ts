@@ -33,6 +33,23 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
       }),
     );
   }
+
+  public getCurrentSpoolToolIndex(toolIndex?: number): Observable<FilamentSpool> {
+    return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
+      map((spools: SpoolManagerSpoolList): FilamentSpool => {
+        if (spools.selectedSpools.length > 0) {
+          if (spools.selectedSpools[toolIndex] != null){
+            return this.convertFilamentManagerSpool(spools.selectedSpools[toolIndex]);
+          } else {
+            return <FilamentSpool>{id: -1};
+          }
+        } else {
+          return null;
+        }
+      }),
+    );
+  }
+
   public getCurrentSpools(): Observable<FilamentSpool[]> {
     return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
       map((spools: SpoolManagerSpoolList): FilamentSpool[] => {
@@ -107,6 +124,19 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
     const setSpoolBody: SpoolManagerSelectionPut = {
       databaseId: spool.id,
       toolIndex: 0,
+    };
+
+    return this.http.put<void>(
+      this.configService.getApiURL('plugin/SpoolManager/selectSpool', false),
+      setSpoolBody,
+      this.configService.getHTTPHeaders(),
+    );
+  }
+
+  public setSpoolToolIndex(spool: FilamentSpool, toolIndex?: number): Observable<void> {
+    const setSpoolBody: SpoolManagerSelectionPut = {
+      databaseId: spool.id,
+      toolIndex: toolIndex,
     };
 
     return this.http.put<void>(

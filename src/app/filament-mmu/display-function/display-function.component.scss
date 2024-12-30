@@ -1,0 +1,50 @@
+.display-function {
+  display: block;
+  width: 95vw;
+  height: 76.5vh;
+  margin-left: 2.5vw;
+  margin-top: 0.5vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 1;
+
+  &__button {
+    display: inline-flex;
+    width: 30vw;
+    background-color: #718093;
+    border-radius: 1vw;
+    height: 18vw;
+    margin-bottom: 1vw;
+    margin-left:30vw;
+    margin-right:1vw;
+    margin-top:4vw;
+    text-align: center;
+    padding-left:1vw;
+    padding-right:1vw;
+    padding-bottom:1vw;
+    line-height:1;
+  }
+
+  &__button-text {
+    display:inline-block;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    line-height:1.2;
+  }
+
+  &__info {
+    display:inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 2vw;
+  }
+
+  &__temp {
+    display:inline-block;
+    text-align: left;
+    margin-left: 17.5vw;
+    width: 100%;
+  }
+}

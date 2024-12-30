@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AppService } from '../app.service';
+import { ConfigService } from '../config/config.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -8,12 +9,21 @@ import { AppService } from '../app.service';
   styleUrls: ['./main-menu.component.scss'],
 })
 export class MainMenuComponent {
-  public constructor(public service: AppService) {}
+  public isMMUEnabled: boolean;
+  
+  public constructor(
+    public service: AppService,
+    private configService: ConfigService
+  ) {}
 
   public settings = false;
 
   public showSettings(): void {
     this.settings = true;
+  }
+
+  public ngOnInit(): void {
+    this.isMMUEnabled = this.configService.isPrusaMMUPluginEnabled()
   }
 
   public hideSettings(): void {

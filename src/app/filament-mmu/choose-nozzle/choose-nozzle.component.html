@@ -1,0 +1,25 @@
+<span class="filament-mmu-heading" i18n="@@choose-nozzle">select an mmu slot</span>
+<div class="choose-nozzle">
+  <div *ngIf="filamentsReady">
+    <ul class="choose-nozzle__list">
+      <li 
+        class="files__object" 
+        *ngFor="let filament of filaments"
+        matRipple
+        (click)="setMmuSlot(filament.id)"
+      >
+        <div class="choose-nozzle__button" *ngIf="filament.enabled">
+          <fa-icon [icon]="['fas', 'paint-brush']" [style.color]="filament.color"></fa-icon>
+          <span class="prusammu__section-heading"> {{ filament.id }}: {{ filament.name }}</span>
+        </div>
+        <div class="choose-nozzle__button" *ngIf="!filament.enabled">
+          <fa-icon [icon]="['fas', 'paint-brush']" [style.opacity]="0"></fa-icon>
+          <span class="prusammu__section-heading"> {{ filament.id }}: Empty</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="files" *ngIf="!filamentsReady">
+    <ng-lottie id="loadingAnimation" [options]="loadingOptions"></ng-lottie>
+  </div>
+</div>

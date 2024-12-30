@@ -6,6 +6,7 @@ import { ConfigInvalidComponent } from './config/invalid/invalid.component';
 import { ConfigSetupComponent } from './config/setup/setup.component';
 import { ControlComponent } from './control/control.component';
 import { FilamentComponent } from './filament/filament.component';
+import { FilamentMMUComponent } from './filament-mmu/filament-mmu.component';
 import { FilesComponent } from './files/files.component';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { MainScreenNoTouchComponent } from './main-screen/no-touch/main-screen-no-touch.component';
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'filament',
     component: FilamentComponent,
+  },
+  {
+    path: 'filament-mmu',
+    component: FilamentMMUComponent,
   },
   {
     path: 'files',

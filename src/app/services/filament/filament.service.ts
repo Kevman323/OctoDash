@@ -111,4 +111,47 @@ export class FilamentService {
       });
     });
   }
+
+  public setSpoolToolIndex(spool: FilamentSpool, toolIndex?: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.filamentPluginService.setSpoolToolIndex(spool, toolIndex).subscribe({
+        next: () => {
+          this.filamentPluginService.getCurrentSpoolToolIndex(toolIndex).subscribe({
+            next: (spoolRemote: FilamentSpool) => {
+              if (spool.id === spoolRemote.id) resolve();
+              else {
+                console.log(spool.id + "," + spoolRemote.id)
+                this.notificationService.setNotification({
+                  heading: $localize`:@@error-spool-id:Spool IDs didn't match`,
+                  text: $localize`:@@error-change-spool:Can't change spool. Please change spool manually in the OctoPrint UI.`,
+                  type: NotificationType.ERROR,
+                  time: new Date(),
+                });
+                reject();
+              }
+            },
+            error: (error: HttpErrorResponse) => {
+              this.notificationService.setNotification({
+                heading: $localize`:@@error-set-new-spool:Can't set new spool!`,
+                text: error.message,
+                type: NotificationType.ERROR,
+                time: new Date(),
+              });
+              reject();
+            },
+          });
+        },
+        error: (error: HttpErrorResponse): void => {
+          this.notificationService.setNotification({
+            heading: $localize`:@@error-set-new-spool-2:Can't set new spool!`,
+            text: error.message,
+            type: NotificationType.ERROR,
+            time: new Date(),
+          });
+          reject();
+        },
+      });
+    });
+  }
+
 }

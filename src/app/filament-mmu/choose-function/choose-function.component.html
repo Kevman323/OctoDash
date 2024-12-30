@@ -1,0 +1,68 @@
+<div class="choose-function">
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('load')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'long-arrow-alt-right']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__left"
+      [icon]="['fas', 'chalkboard']"
+    ></fa-icon>
+    load new filament
+  </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('load-nozzle')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'long-arrow-alt-right']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__right fa-flip-horizontal"
+      [icon]="['fas', 'paint-brush']"
+    ></fa-icon>
+    load to nozzle
+  </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('cut')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'chalkboard']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__left"
+      [icon]="['fas', 'cut']"
+    ></fa-icon>
+    cut filament
+  </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('unload')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'long-arrow-alt-left']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__left"
+      [icon]="['fas', 'chalkboard']"
+    ></fa-icon>
+    unload filament
+  </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('unload-nozzle')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'long-arrow-alt-left']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__right fa-flip-horizontal"
+      [icon]="['fas', 'paint-brush']"
+    ></fa-icon>
+    unload from nozzle
+  </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('eject')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'chalkboard']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__left"
+      [icon]="['fas', 'angle-double-right']"
+    ></fa-icon>
+    eject filament
+  </div>
+</div>

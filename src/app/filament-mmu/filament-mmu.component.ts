@@ -83,10 +83,10 @@ export class FilamentMMUComponent implements OnInit, OnDestroy {
     //if on page 0, return to the main screen
     if (this.page === 0) {
       this.router.navigate(['/main-screen']);
-    //If on page 3, the heat nozzle page, skip page 2, the filament select page, and go to page 1
+    //If on page 3, the heat nozzle page, skip page 2, the filament select page, and go back to page 1
     } else if (this.page === 3) {
       this.setPage(1);
-    //If on page for, return to either page 3, 2, or 1, based on the current function
+    //If on page 4, return to either page 3, 2, or 1, based on the current function
     } else if (this.page === 4) {
       if (this.selectedMmuFunction === "load") {
         this.setPage(3);

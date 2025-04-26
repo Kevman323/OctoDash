@@ -11,7 +11,7 @@
 
   &__button {
     display: inline-block;
-    width: 26.35vw;
+    width: 19vw;
     background-color: #718093;
     border-radius: 1vw;
     height: 19.5vw;
@@ -22,23 +22,32 @@
     padding-left:1vw;
     padding-right:1vw;
     padding-bottom:1vw;
-    line-height:1;
+    line-height:.9;
   }
-
+  
+  &__spacer {
+    display: inline-block;
+    width: 9.5vw;
+    height: 19.5vw;
+    margin-bottom: 1vw;
+    margin-left:1vw;
+    margin-right:1vw;
+  }
+  
   &__icon__right {
     display:inline-block;
     width:50%;
-    height:9vw;
-    font-size:7.5vw;
-    line-height:80px;
+    height:7vw;
+    font-size:5.4vw;
+    line-height:70px;
     text-align:right;
   }
   &__icon__left {
     display:inline-block;
     width:50%;
-    height:9vw;
-    font-size:7.5vw;
-    line-height:80px;
+    height:7vw;
+    font-size:5.4vw;
+    line-height:70px;
     text-align:left;
   }
   &__info {

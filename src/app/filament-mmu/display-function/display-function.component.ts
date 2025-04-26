@@ -103,6 +103,11 @@ export class DisplayFunctionComponent {
       if (!this.selectedMmuFilament.enabled) {
         this.currentStage = 0;
       }
+    } else if (this.selectedMmuFunction === "reload") {
+      //if filament slot looks empty, ask user first.
+      if (!this.selectedMmuFilament.enabled) {
+        this.currentStage = 0;
+      }
     }
     
     this.updateDisplay();
@@ -122,6 +127,8 @@ export class DisplayFunctionComponent {
       this.updateDisplayCut();
     } else if (this.selectedMmuFunction === "eject") {
       this.updateDisplayEject();
+    } else if (this.selectedMmuFunction === "reload") {
+      this.updateDisplayReload();
     }
   }
 
@@ -161,7 +168,34 @@ export class DisplayFunctionComponent {
         this.startCheckmarkAnim.emit();
       }
   }
-
+  
+  //display update for reload
+  public updateDisplayReload(): void{
+      //if no filament loaded in filament manager, prompt first
+      if (this.currentStage === 0) {
+        this.currentMessage = "filament slot " + this.selectedMmuSlot + " looks empty, continue?";
+        this.hideButton = false;
+        this.buttonMessage = "continue";
+      //start here otherwise
+      } else if (this.currentStage === 1) {
+        this.currentMessage = "ready to reload filament in slot " + this.selectedMmuSlot;
+        this.hideButton = false;
+        this.buttonMessage = "reload";
+      //reload filament, send gcode to load, and wait for user to confirm when done.
+      } else if (this.currentStage === 2) {
+        this.sendGcode("load", this.selectedMmuSlot - 1);
+        this.currentMessage = "reloading filament: " + this.selectedMmuSpool.name;
+        this.hideButton = false;
+        this.buttonMessage = "done reloading filament";
+      } else if (this.currentStage === 3) {
+        this.currentMessage = "filament reload complete!";
+        this.hideButton = true;
+        setTimeout(this.timeoutDelay.bind(this), 1500);
+      } else if (this.currentStage === 4) {
+        this.startCheckmarkAnim.emit();
+      }
+  }
+  
   //display update for unload
   public updateDisplayUnload(): void {
     //unload the filament

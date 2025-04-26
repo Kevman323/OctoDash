@@ -10,6 +10,17 @@
     ></fa-icon>
     load new filament
   </div>
+  <div class="choose-function__button" matRipple (click)="setMmuFunction('reload')">
+    <fa-icon
+      class="choose-function__icon__right"
+      [icon]="['fas', 'sync-alt']"
+    ></fa-icon>
+    <fa-icon
+      class="choose-function__icon__left"
+      [icon]="['fas', 'chalkboard']"
+    ></fa-icon>
+    reload filament
+  </div>
   <div class="choose-function__button" matRipple (click)="setMmuFunction('load-nozzle')">
     <fa-icon
       class="choose-function__icon__right"
@@ -31,6 +42,8 @@
       [icon]="['fas', 'cut']"
     ></fa-icon>
     cut filament
+  </div>
+  <div class="choose-function__spacer">
   </div>
   <div class="choose-function__button" matRipple (click)="setMmuFunction('unload')">
     <fa-icon
